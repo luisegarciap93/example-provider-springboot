@@ -57,12 +57,12 @@ test {
 	// Allow just the changed pact triggered by webhook, to be verified, ignoring the consumer version selectors above
 	// https://docs.pact.io/implementation_guides/jvm/provider/junit#allowing-just-the-changed-pact-specified-in-a-webhook-to-be-verified-406
 	// Runs when the consumer contract changes
-	systemProperty("pact.filter.pacturl", System.getenv("PACT_URL") == null ? null : System.getenv("PACT_URL"))
+	systemProperty("pact.filter.pacturl", System.getenv("PACT_BROKER_BASE_URL") == null ? null : System.getenv("PACT_BROKER_BASE_URL"))
 	// COMMENTING HERE
-//	systemProperty("pact.filter.consumers", System.getenv("PACT_URL") == null ? null : System.getenv("PACT_URL").split("/consumer/")[1])
-	systemProperty("pact.filter.consumers", System.getenv("PACT_URL") == null || !System.getenv("PACT_URL").contains("/pacticipants/")
+//	systemProperty("pact.filter.consumers", System.getenv("PACT_BROKER_BASE_URL") == null ? null : System.getenv("PACT_BROKER_BASE_URL").split("/consumer/")[1])
+	systemProperty("pact.filter.consumers", System.getenv("PACT_BROKER_BASE_URL") == null || !System.getenv("PACT_BROKER_BASE_URL").contains("/pacticipants/")
 			? null
-			: System.getenv("PACT_URL").split("/pacticipants/")[1].split("/")[0])
+			: System.getenv("PACT_BROKER_BASE_URL").split("/pacticipants/")[1].split("/")[0])
 	// pending pacts
 	systemProperty("pactbroker.enablePending", true)
 	systemProperty("pactbroker.token", System.getenv("PACT_BROKER_TOKEN"))
